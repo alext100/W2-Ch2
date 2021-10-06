@@ -16,33 +16,7 @@ const calculate = (n1, operatorSymbol, n2) => {
     if (operatorSymbol === 'divide') return firstNum / secondNum;
 }
 
-calculator.addEventListener('click', (event) => {
-    if (event.target.nodeName === 'BUTTON') {
-        switch (event.target.className) {
-            case "number":
-                caseNumber(event.target.textContent);
-                break;
-            case "add":
-            case "subtract":
-            case "divide":
-            case "multiply":
-                caseOperator(event.target.textContent, event.target.className);
-                break;
-            case "comma":
-                caseComma(event.target.textContent);
-                break;
-            case "ac":
-                caseAc();
-                break;
-            case "del":
-                caseDel();
-                break;
-            case "enter":
-                caseEnter();
-                break;
-        }
-    }
-});
+
 
 window.addEventListener('keydown', (event) => {
     const isNumber = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
@@ -166,3 +140,33 @@ function caseEnter() {
     }
 
 }
+
+calculator.addEventListener('click', (event) => {
+    if (event.target.nodeName === 'BUTTON') {
+        switch (event.target.className) {
+            case "number":
+                caseNumber(event.target.textContent);
+                break;
+            case "add":
+            case "subtract":
+            case "divide":
+            case "multiply":
+                caseOperator(event.target.textContent, event.target.className);
+                break;
+            case "comma":
+                caseComma(event.target.textContent);
+                break;
+            case "ac":
+                caseAc();
+                break;
+            case "del":
+                caseDel();
+                break;
+            case "enter":
+                caseEnter();
+                break;
+            default:
+                break;
+        }
+    }
+});
