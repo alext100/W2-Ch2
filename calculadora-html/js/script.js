@@ -1,6 +1,5 @@
 const display = document.querySelector('.calculator__display');
 const calculator = document.querySelector('.calc_body');
-let key;
 let enteredCharacter = "";
 let number1 = "";
 let number2 = "";
@@ -8,13 +7,13 @@ let operator = "";
 let previousKey = "";
 let result = "";
 
-const calculate = (n1, operator, n2) => {
+const calculate = (n1, operatorSymbol, n2) => {
     const firstNum = parseFloat(n1);
     const secondNum = parseFloat(n2);
-    if (operator === 'add') return firstNum + secondNum;
-    if (operator === 'subtract') return firstNum - secondNum;
-    if (operator === 'multiply') return firstNum * secondNum;
-    if (operator === 'divide') return firstNum / secondNum;
+    if (operatorSymbol === 'add') return firstNum + secondNum;
+    if (operatorSymbol === 'subtract') return firstNum - secondNum;
+    if (operatorSymbol === 'multiply') return firstNum * secondNum;
+    if (operatorSymbol === 'divide') return firstNum / secondNum;
 }
 
 calculator.addEventListener('click', (event) => {
@@ -77,11 +76,11 @@ function caseNumber(NumberCharacterFromListener) {
         enteredCharacter = NumberCharacterFromListener;
         display.textContent = enteredCharacter;
     } else if (previousKey === "enter") {
-        return; //exclude an attempt to put the second operand after Enter operation if the operator character was not entered
-    } else if (previousKey !== "operator") { //if the previously entered key is not an operator, we form the operand using concatenation
+        return; // exclude an attempt to put the second operand after Enter operation if the operator character was not entered
+    } else if (previousKey !== "operator") { // if the previously entered key is not an operator, we form the operand using concatenation
         enteredCharacter += NumberCharacterFromListener;
         display.textContent = enteredCharacter;
-    } else if (previousKey === "operator") { //if the previously entered key is an operator, we begin to form the next operand
+    } else if (previousKey === "operator") { // if the previously entered key is an operator, we begin to form the next operand
         enteredCharacter = NumberCharacterFromListener;
         display.textContent = enteredCharacter;
     }
@@ -90,7 +89,7 @@ function caseNumber(NumberCharacterFromListener) {
 
 function caseOperator(NumberCharacterFromListener, operatorCharacterFromListener) {
     if (display.textContent === "0" && previousKey !== "enter") {
-        return;
+
     } else if (previousKey === "enter") {
         operator = operatorCharacterFromListener;
         number1 = result;
@@ -101,7 +100,7 @@ function caseOperator(NumberCharacterFromListener, operatorCharacterFromListener
         operator = operatorCharacterFromListener;
         display.textContent = number1 + NumberCharacterFromListener;
         previousKey = "operator";
-        return;
+
     } else if (previousKey !== "operator") {
         if (number1 === "") {
             operator = operatorCharacterFromListener;
@@ -157,7 +156,7 @@ function caseDel() {
 
 function caseEnter() {
     if (display.textContent === "0" && result === "" || (number1 === "" && previousKey === "number")) {
-        return; //exclude an attempt to press Enter when the second operand is not entered
+        // exclude an attempt to press Enter when the second operand is not entered
     } else {
         number2 = enteredCharacter;
         result = calculate(number1, operator, number2);
