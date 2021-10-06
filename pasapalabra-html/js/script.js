@@ -218,42 +218,11 @@ function changePlayButtonTextContent() {
 }
 
 
-// La función se ejecuta cuando el usuario presiona el botón "Play" o "Play Again" durante el juego para reiniciar.
+// Muestra la siguiente pregunta al usuario en HTML.
 
-function startGame() {
-    currentPlayerName();
-    if (!playerName) return; // If the user has not entered a name, the game will not start.
-    removeAllAnswerLetterClasses();
-    clearInterval(timer);
-    index = 0;
-    timeTotal = 300;
-    userPunto = 0;
-    newArrayQuestions = [];
-    updateAnswer(); //  answerVal.value = ''
-    newArrayQuestions = getNewRandomQuestions(questions);
-    currentLetter = newArrayQuestions[index].letter;
-    showNextQuestion();
-    changeActivLetterColor();
-    timer = setInterval(countdownTime, 1000);
-    hideDOMElement(descriptionPart);
-    hideDOMElement(finalMessage);
-    hideDOMElement(rankingTable);
-    showDOMElement(scoresBlock);
-    showDOMElement(buttonsBlock);
-    showDOMElement(interactionBlock);
-    animation();
-    if (soundToggleChekbox) {
-        playStartSound();
-    }
+function showNextQuestion() {
+    questionParagraph.textContent = newArrayQuestions[index].question;
 }
-
-// Una vez completado el círculo de preguntas, esta función creará un nuevo array de preguntas a las que se ha aplicado el pasapalabra.
-// Son preguntas con "status === 0"
-
-function updateQuestions() {
-    return newArrayQuestions.filter(arr => arr.status === 0);
-}
-
 
 // Una función que devuelve la letra actual que se utilizará en esta ronda.
 
@@ -274,94 +243,11 @@ function updateLetter() {
 }
 
 
-// Muestra la siguiente pregunta al usuario en HTML.
-
-function showNextQuestion() {
-    questionParagraph.textContent = newArrayQuestions[index].question;
-}
-
-
-// Cuando presione el botón Pasapalabra, realice el siguiente conjunto de funciones:
-
-function pasapalabra() {
-    changePasapalabraLetterColor();
-    checkArrayQuestionsForFin();
-    userPuntos(index, 0, 0);
-    updateLetter();
-    changeActivLetterColor();
-    showNextQuestion();
-    if (soundToggleChekbox) {
-        playPasapalabraAnswerSound();
-    }
-}
-
-
-// Comprueba si hay más preguntas en el array actual y, si no, se creará un nuevo array si es posible o se detendrá el juego.
-
-function checkArrayQuestionsForFin() {
-    if (index === newArrayQuestions.length - 1) { // Checks if the current question is the last in an array
-        newArrayQuestions = newArrayQuestions.filter(arr => arr.status === 0); // Para sigentes rondas (preguntas despues de "pasapalabra") vamos a filtrar el array
-        if (newArrayQuestions.length !== 0) { // In case there are questions in the new array:
-            index = 0;
-            currentLetter = newArrayQuestions[index].letter;
-            nextRoundMarker = 1;
-            return newArrayQuestions;
-        } // If there are no questions in the new array:
-        stopGame();
-
-    }
-}
-
-
-// Comprueba la respuesta del usuario.
-
-function checkAnswer() {
-    const answer = currentUserAnswer(); // answerVal.value
-    if (answer.toLowerCase() !== null && answer.toLowerCase() === newArrayQuestions[index].answer) {
-        userPuntos(index, 1, 1);
-        changeCorrectAnswerLetterColor();
-        if (soundToggleChekbox) {
-            playCorrectAnswerSound();
-        }
-    } else {
-        userPuntos(index, 0, 1);
-        changeIncorrectAnswerLetterColor();
-        if (soundToggleChekbox) {
-            playNoCorrectAnswerSound();
-        }
-    }
-    showScores();
-    checkArrayQuestionsForFin();
-    if (rankingTable.classList.contains("hideElement")) { // If the game has not been stopped
-        updateLetter();
-        updateAnswer(); //  answerVal.value = ''
-        changeActivLetterColor();
-        showNextQuestion();
-    }
-}
-
-
 // Acumula los puntos del usuario y actualiza el atributo "status", según la respuesta del usuario a la pregunta.
 
 function userPuntos(i, punto, status) {
     userPunto += punto;
     newArrayQuestions[i].status = status;
-}
-
-
-// Cuando el usuario presione el botón Detener o cuando se acabe el tiempo o las preguntas.
-
-function stopGame() {
-    finalMessage.textContent = `Tienes ${userPunto} respuestas correctas y ${27 - userPunto} incorrectas`;
-    clearInterval(timer);
-    hideDOMElement(buttonsBlock);
-    hideDOMElement(interactionBlock);
-    showDOMElement(finalMessage);
-    showDOMElement(rankingTable);
-    if (soundToggleChekbox) {
-        playFinishtSound();
-    }
-    generateRankingTable();
 }
 
 
@@ -423,6 +309,20 @@ function generateRankingTable() {
     tableAciertos5.previousElementSibling.textContent = playersRating(rating)[4].name;
 }
 
+// Cuando el usuario presione el botón Detener o cuando se acabe el tiempo o las preguntas.
+
+function stopGame() {
+    finalMessage.textContent = `Tienes ${userPunto} respuestas correctas y ${27 - userPunto} incorrectas`;
+    clearInterval(timer);
+    hideDOMElement(buttonsBlock);
+    hideDOMElement(interactionBlock);
+    showDOMElement(finalMessage);
+    showDOMElement(rankingTable);
+    if (soundToggleChekbox) {
+        playFinishtSound();
+    }
+    generateRankingTable();
+}
 
 // Time
 
@@ -430,11 +330,76 @@ function countdownTime() {
     if (timeTotal === 0) {
         stopGame();
     } else {
-        time_left.innerHTML = timeTotal;
         timeTotal--;
     }
 }
 
+// La función se ejecuta cuando el usuario presiona el botón "Play" o "Play Again" durante el juego para reiniciar.
+
+function startGame() {
+    currentPlayerName();
+    if (!playerName) return; // If the user has not entered a name, the game will not start.
+    removeAllAnswerLetterClasses();
+    clearInterval(timer);
+    index = 0;
+    timeTotal = 300;
+    userPunto = 0;
+    newArrayQuestions = [];
+    updateAnswer(); //  answerVal.value = ''
+    newArrayQuestions = getNewRandomQuestions(questions);
+    currentLetter = newArrayQuestions[index].letter;
+    showNextQuestion();
+    changeActivLetterColor();
+    timer = setInterval(countdownTime, 1000);
+    hideDOMElement(descriptionPart);
+    hideDOMElement(finalMessage);
+    hideDOMElement(rankingTable);
+    showDOMElement(scoresBlock);
+    showDOMElement(buttonsBlock);
+    showDOMElement(interactionBlock);
+    animation();
+    if (soundToggleChekbox) {
+        playStartSound();
+    }
+}
+
+// Una vez completado el círculo de preguntas, esta función creará un nuevo array de preguntas a las que se ha aplicado el pasapalabra.
+// Son preguntas con "status === 0"
+
+function updateQuestions() {
+    return newArrayQuestions.filter(arr => arr.status === 0);
+}
+
+// Comprueba si hay más preguntas en el array actual y, si no, se creará un nuevo array si es posible o se detendrá el juego.
+
+function checkArrayQuestionsForFin() {
+    if (index === newArrayQuestions.length - 1) { // Checks if the current question is the last in an array
+        updateQuestions() // Para sigentes rondas (preguntas despues de "pasapalabra") vamos a filtrar el array
+        if (newArrayQuestions.length !== 0) { // In case there are questions in the new array:
+            index = 0;
+            currentLetter = newArrayQuestions[index].letter;
+            nextRoundMarker = 1;
+            return newArrayQuestions;
+        } // If there are no questions in the new array:
+        stopGame();
+
+    }
+}
+
+
+// Cuando presione el botón Pasapalabra, realice el siguiente conjunto de funciones:
+
+function pasapalabra() {
+    changePasapalabraLetterColor();
+    checkArrayQuestionsForFin();
+    userPuntos(index, 0, 0);
+    updateLetter();
+    changeActivLetterColor();
+    showNextQuestion();
+    if (soundToggleChekbox) {
+        playPasapalabraAnswerSound();
+    }
+}
 
 // Si el usuario intenta presionar el botón "Play" sin ingresar un nombre, el campo de entrada se resaltará en rojo.
 
@@ -442,6 +407,34 @@ function changeInputFieldBorderColorIfError(element) {
     element.classList.add("error");
 }
 
+
+
+// Comprueba la respuesta del usuario.
+
+function checkAnswer() {
+    const answer = currentUserAnswer(); // answerVal.value
+    if (answer.toLowerCase() !== null && answer.toLowerCase() === newArrayQuestions[index].answer) {
+        userPuntos(index, 1, 1);
+        changeCorrectAnswerLetterColor();
+        if (soundToggleChekbox) {
+            playCorrectAnswerSound();
+        }
+    } else {
+        userPuntos(index, 0, 1);
+        changeIncorrectAnswerLetterColor();
+        if (soundToggleChekbox) {
+            playNoCorrectAnswerSound();
+        }
+    }
+    showScores();
+    checkArrayQuestionsForFin();
+    if (rankingTable.classList.contains("hideElement")) { // If the game has not been stopped
+        updateLetter();
+        updateAnswer(); //  answerVal.value = ''
+        changeActivLetterColor();
+        showNextQuestion();
+    }
+}
 
 // Event listeners:
 
