@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pasapalabra HTML</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="block">
+            <div class="square">
+                <span class="letra-a">a</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-b">b</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-c">c</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-d">d</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-e">e</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-f">f</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-g">g</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-h">h</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-i">i</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-j">j</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-k">k</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-l">l</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-m">m</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-n">n</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-ñ">ñ</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-o">o</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-p">p</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-q">q</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-r">r</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-s">s</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-t">t</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-u">u</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-v">v</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-w">w</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-x">x</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-y">y</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <span class="letra-z">z</span>
+            </div>
+        </div>
+        <form class="play_button_div">
+            <button class="play_button" type="button">Play</button>
+        </form>
+    </div>
+
+    <div class="description">
+        <h2>Bienvenidos al juego de Pasapalabra de Skylab Coders Academy!</h2>
+        <p>
+            Basado en el exitoso concurso de televisión Pasapalabra de Telecinco, las normas son muy sencillas:
+        </p>
+        <p>
+            Se mostraran unas definiciones por pantalla y el usuario deberá responder con la palabra a la que corresponden. El usuario tiene la opción de decir Pasapalabra y dejar esa definición para mas adelante.
+        </p>
+        <p>
+            El programa es sensible a las acentuación, asi que se debe introducir la palabra sin tilde. Es posible utilizar la tecla ENTER para enviar la palabra y el SPACE para hacer pasapalabra.
+        </p>
+
+        <div class="userName">
+            <input id="userName" type="text" placeholder="Tu nombre..." autocomplete="off" maxlength="30" />
+        </div>
+    </div>
+
+    <div class="interaction hideElement">
+        <div class="pregunta">
+            Pregunta:
+            <p class="question"></p>
+        </div>
+
+        <div class="answer">
+            <input id="answer" type="text" placeholder="Tu respuesta..." autocomplete="off" maxlength="30" />
+        </div>
+
+        <div class="buttons_block hideElement">
+            <button type="button" id="responder" class="answer_button button">
+          Responder
+        </button>
+            <button type="button" id="pasapalabra" class="button">
+          Pasapalabra
+        </button>
+            <button type="button" id="stop" class="button">Stop</button>
+
+            <div class="sound_control">
+                <input type="checkbox" class="sound_toggle" checked />
+                <div>Sound on</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scores_block" class="hideElement">
+        <div>Tiempo:</div>
+        <div id="time_left">0</div>
+        <div>Score:</div>
+        <div id="score_sum">0</div>
+    </div>
+
+    <div class="ranking_block hideElement">
+        <div class="final_message hideElement"></div>
+        <br /><br />
+
+        <table aria-label="ranking table" class="table">
+            <thead class="thead">
+                <tr>
+                    <th scope="col">Posición</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Aciertos</th>
+                    <th scope="col">Tiempo Restante</th>
+                </tr>
+            </thead>
+            <tbody class="ranking_body">
+                <tr>
+                    <td>1</td>
+                    <td></td>
+                    <td class="Aciertos-1"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td></td>
+                    <td class="Aciertos-2"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td></td>
+                    <td class="Aciertos-3"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td></td>
+                    <td class="Aciertos-4"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td></td>
+                    <td class="Aciertos-5"></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
