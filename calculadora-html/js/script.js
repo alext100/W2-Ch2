@@ -16,35 +16,6 @@ const calculate = (n1, operatorSymbol, n2) => {
     if (operatorSymbol === 'divide') return firstNum / secondNum;
 }
 
-
-
-window.addEventListener('keydown', (event) => {
-    const isNumber = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-    if (isNumber.includes(event.key)) {
-        caseNumber(event.key);
-    } else if (event.code === 'Backspace') {
-        caseDel();
-    } else if (event.code === 'Space' || event.code === 'Escape') {
-        caseAc();
-    } else if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        caseEnter();
-    } else if (event.code === 'Period' || event.code === 'NumpadDecimal') {
-        caseComma(event.key);
-    } else if (event.code === 'NumpadMultiply' || event.key === '*') {
-        const eventName = 'multiply';
-        caseOperator(event.key, eventName);
-    } else if (event.code === 'BracketRight' || event.code === 'NumpadAdd') {
-        const eventName = 'add';
-        caseOperator(event.key, eventName);
-    } else if (event.code === 'Slash' || event.code === 'NumpadSubtract') {
-        const eventName = 'subtract';
-        caseOperator(event.key, eventName);
-    } else if (event.key === '/' || event.code === 'NumpadDivide') {
-        const eventName = 'divide';
-        caseOperator(event.key, eventName);
-    };
-});
-
 function caseNumber(NumberCharacterFromListener) {
     if (display.textContent === "0") {
         enteredCharacter = NumberCharacterFromListener;
@@ -63,8 +34,9 @@ function caseNumber(NumberCharacterFromListener) {
 
 function caseOperator(NumberCharacterFromListener, operatorCharacterFromListener) {
     if (display.textContent === "0" && previousKey !== "enter") {
-
-    } else if (previousKey === "enter") {
+        return;
+    }
+    if (previousKey === "enter") {
         operator = operatorCharacterFromListener;
         number1 = result;
         display.textContent = number1 + NumberCharacterFromListener;
@@ -140,6 +112,33 @@ function caseEnter() {
     }
 
 }
+
+window.addEventListener('keydown', (event) => {
+    const isNumber = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+    if (isNumber.includes(event.key)) {
+        caseNumber(event.key);
+    } else if (event.code === 'Backspace') {
+        caseDel();
+    } else if (event.code === 'Space' || event.code === 'Escape') {
+        caseAc();
+    } else if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+        caseEnter();
+    } else if (event.code === 'Period' || event.code === 'NumpadDecimal') {
+        caseComma(event.key);
+    } else if (event.code === 'NumpadMultiply' || event.key === '*') {
+        const eventName = 'multiply';
+        caseOperator(event.key, eventName);
+    } else if (event.code === 'BracketRight' || event.code === 'NumpadAdd') {
+        const eventName = 'add';
+        caseOperator(event.key, eventName);
+    } else if (event.code === 'Slash' || event.code === 'NumpadSubtract') {
+        const eventName = 'subtract';
+        caseOperator(event.key, eventName);
+    } else if (event.key === '/' || event.code === 'NumpadDivide') {
+        const eventName = 'divide';
+        caseOperator(event.key, eventName);
+    };
+});
 
 calculator.addEventListener('click', (event) => {
     if (event.target.nodeName === 'BUTTON') {
