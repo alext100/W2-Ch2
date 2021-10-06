@@ -8,6 +8,7 @@ let previousKey = "";
 let result = "";
 
 const calculate = (n1, operatorSymbol, n2) => {
+    module.exports = calculate;
     const firstNum = parseFloat(n1);
     const secondNum = parseFloat(n2);
     if (operatorSymbol === 'add') return firstNum + secondNum;
