@@ -69,7 +69,7 @@ let timer;
 let soundToggleChekbox = 1;
 let playerName = "";
 let rating = [];
-let sortedPlayersRating;
+
 
 
 
@@ -377,7 +377,8 @@ function getRandomInt(min, max) {
 // Función que devuelve un array con calificaciones de usuarios, ordenado por puntos (score).
 
 function playersRating(grade) {
-    return sortedPlayersRating = grade.sort((a, b) => b.score - a.score);
+    const sortedPlayersRating = grade.sort((a, b) => b.score - a.score);
+    return sortedPlayersRating;
 }
 
 
